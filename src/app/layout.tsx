@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Blog",
+  title: "Frontier",
   description: "A minimal and modern blog design",
 };
 
