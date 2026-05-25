@@ -1,0 +1,79 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Search, Menu, ChevronRight } from 'lucide-react';
+import ThemeToggleButton from '../shared/ThemeToggleButton';
+import SearchOverlay from '../shared/SearchOverlay';
+import { useApp } from '@/providers/AppContextProvider';
+
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { toggleSearch } = useApp();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header 
+  className={`sticky top-0 z-50 w-full border-b transition-[padding,background-color,box-shadow,border-color] duration-300 ease-in-out ${
+    isScrolled 
+      ? 'bg-background/90 backdrop-blur-md shadow-sm border-border dark:border-border/50 py-3' 
+      : 'bg-background border-transparent py-5'
+  }`}
+>
+      <div className="container mx-auto">
+        <div className="flex items-center justify-between">
+          
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/" className="text-3xl font-extrabold tracking-tight text-foreground group transition-all">
+              Blog<span className="text-primary group-hover:opacity-80 transition-opacity">.</span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex flex-1 justify-center space-x-12">
+             <Link href="/" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               Home
+               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+             </Link>
+             <Link href="/articles" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               Articles
+               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+             </Link>
+             <Link href="/about" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               About
+               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+             </Link>
+          </nav>
+
+          {/* Right section (Subscribe, Theme, Search, Mobile) */}
+          <div className="flex items-center space-x-2 md:space-x-4">
+             
+             <button aria-label="Search" onClick={() => toggleSearch()} className="p-2 text-foreground hover:text-primary transition-colors rounded-full hover:bg-muted duration-200">
+               <Search className="h-5 w-5" />
+             </button>
+
+             
+
+             <ThemeToggleButton />
+
+             {/* Mobile menu button */}
+             <div className="md:hidden pl-2">
+               <button aria-label="Menu" className="p-2 text-foreground hover:text-primary transition-colors rounded-full hover:bg-muted duration-200">
+                 <Menu className="h-6 w-6" />
+               </button>
+             </div>
+          </div>
+        </div>
+      </div>
+      <SearchOverlay />
+    </header>
+  );
+}
