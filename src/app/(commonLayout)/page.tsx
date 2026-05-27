@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import FeaturedArticle from "@/components/home/FeaturedArticle";
 import articlesJson from '@/articles.json'
 import ArticleGrid from "@/components/home/ArticleGrid";
