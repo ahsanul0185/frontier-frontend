@@ -44,8 +44,8 @@ export default function Header() {
                Articles
                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
              </Link>
-             <Link href="/about" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
-               About
+             <Link href="/dashboard" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               Dashboard
                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
              </Link>
           </nav>

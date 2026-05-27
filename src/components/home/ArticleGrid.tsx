@@ -3,6 +3,8 @@ import { Article } from '@/types/article.types'
 import ArticleCard from './ArticleCard'
 import Button from '../ui/Button'
 
+
+
 export default function ArticleGrid({ articles }: { articles: Article[] }) {
   return (
     <section className="container py-16">

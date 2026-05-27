@@ -6,7 +6,7 @@ export default function Logo() {
     <div className="shrink-0 flex items-center">
       <Link
         href="/"
-        className="text-3xl font-extrabold tracking-tight text-foreground group transition-all"
+        className="text-3xl font-extrabold tracking-tight font-playfair text-foreground group transition-all"
       >
         Blog
         <span className="text-primary group-hover:opacity-80 transition-opacity">
