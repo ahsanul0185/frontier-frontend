@@ -1,12 +1,16 @@
 import FeaturedArticle from "@/components/home/FeaturedArticle";
-import articles from '@/articles.json'
+import articlesJson from '@/articles.json'
 import ArticleGrid from "@/components/home/ArticleGrid";
+import { getAllArticles } from "@/services/article.service";
 
-export default function Home() {
+export default async function Home() {
+
+  const articles = await getAllArticles();
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-white font-sans dark:bg-black">
       <FeaturedArticle />
-       <ArticleGrid articles={articles} />
+       <ArticleGrid articles={articlesJson} />
     </div>
   );
 }

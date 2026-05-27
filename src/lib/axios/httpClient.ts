@@ -30,7 +30,7 @@ const axiosInstance = async () : Promise<AxiosInstance> => {
 }
 
 
-const httpGet = async (endpoint: string, options : ApiRequestOptions) => {
+const httpGet = async (endpoint: string, options?: ApiRequestOptions) => {
     try {
         
         const instance = await axiosInstance();
@@ -47,7 +47,7 @@ const httpGet = async (endpoint: string, options : ApiRequestOptions) => {
     }
 }
 
-const httpPost = async (endpoint: string, data: any, options : ApiRequestOptions) => {
+const httpPost = async (endpoint: string, data: any, options?: ApiRequestOptions) => {
     try {
         const instance = await axiosInstance();
         const response = await instance.post(endpoint, data, {
@@ -63,7 +63,7 @@ const httpPost = async (endpoint: string, data: any, options : ApiRequestOptions
 }
 
 
-const httpPut = async (endpoint: string, data: any, options : ApiRequestOptions) => {
+const httpPut = async (endpoint: string, data: any, options?: ApiRequestOptions) => {
     try {
         const instance = await axiosInstance();
         const response = await instance.put(endpoint, data, {
@@ -78,7 +78,7 @@ const httpPut = async (endpoint: string, data: any, options : ApiRequestOptions)
     }
 }
 
-const httpDelete = async (endpoint: string, options : ApiRequestOptions) => {
+const httpDelete = async (endpoint: string, options?: ApiRequestOptions) => {
     try {
         const instance = await axiosInstance();
         const response = await instance.delete(endpoint, {

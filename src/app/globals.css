@@ -17,7 +17,7 @@
   --color-primary: var(--color-theme-soft-green);
   --color-primary-foreground: #ffffff;
 
-  --font-sans: var(--font-playfair);
+  --font-sans: var(--font-sans);
   --font-heading: var(--font-playfair);
 
   --color-background: var(--background);

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AppContextProvider } from "@/providers/AppContextProvider";
@@ -10,6 +11,7 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
 });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Frontier",
@@ -24,11 +26,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", playfair.variable)}
+      // className={cn("h-full", "antialiased", inter.variable)}
       suppressHydrationWarning
     >
       <body
-        className="min-h-full flex flex-col transition-colors duration-300"
+        className="min-h-full flex flex-col font-sans transition-colors duration-300"
         suppressHydrationWarning
       >
         <ThemeProvider

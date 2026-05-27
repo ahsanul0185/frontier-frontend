@@ -9,7 +9,6 @@ export interface FeaturedArticleProps {
   category?: string
 }
 
-
 export interface Article {
   id: string
   title: string
@@ -19,4 +18,24 @@ export interface Article {
   imageAlt: string
   category: string
   date: string
+}
+
+export interface IArticle {
+  id: number;
+  title: string;
+  slug: string;
+  content: string;
+  notes?: string | null;
+  author: string;
+  image: string | null;
+  published: boolean;
+  createdAtUtc: string;
+  updatedAtUtc: string;
+}
+
+export interface IArticlePaginatedResponse {
+  items: IArticle[];
+  total: number;
+  page: number;
+  pageSize: number;
 }
