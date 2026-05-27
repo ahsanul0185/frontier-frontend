@@ -6,6 +6,7 @@ import { Search, Menu, ChevronRight } from 'lucide-react';
 import ThemeToggleButton from '../shared/ThemeToggleButton';
 import SearchOverlay from '../shared/SearchOverlay';
 import { useApp } from '@/providers/AppContextProvider';
+import Logo from '../shared/Logo';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +24,7 @@ export default function Header() {
     <header 
   className={`sticky top-0 z-50 w-full border-b transition-[padding,background-color,box-shadow,border-color] duration-300 ease-in-out ${
     isScrolled 
-      ? 'bg-background/90 backdrop-blur-md shadow-sm border-border dark:border-border/50 py-3' 
+      ? 'bg-background/90 backdrop-blur-md shadow-sm border-border/50 dark:border-border/50 py-3' 
       : 'bg-background border-transparent py-5'
   }`}
 >
@@ -31,11 +32,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-3xl font-extrabold tracking-tight text-foreground group transition-all">
-              Blog<span className="text-primary group-hover:opacity-80 transition-opacity">.</span>
-            </Link>
-          </div>
+          <Logo />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex flex-1 justify-center space-x-12">
