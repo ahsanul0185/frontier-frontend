@@ -1,7 +1,7 @@
 "use server"
 
 import { httpClient } from "@/lib/axios/httpClient";
-import { IArticlePaginatedResponse } from "@/types/article.types";
+import { IArticle, IArticlePaginatedResponse } from "@/types/article.types";
 
 export interface IGetAllArticlesParams {
     q ?: string;
@@ -30,4 +30,22 @@ export const getAllArticles = async (params : IGetAllArticlesParams = {}) : Prom
         page : res.page,
         pageSize : res.pageSize
     }
+}
+
+export const uploadImage = async (formData: FormData) => {
+    const res = await httpClient.post("/uploads", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return res;
+}
+
+export const createArticle = async (articleData: Partial<IArticle>) => {
+    const res = await httpClient.post("/posts", articleData, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    return res;
 }

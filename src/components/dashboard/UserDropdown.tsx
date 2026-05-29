@@ -19,7 +19,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none">
+        <div className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none">
           {/* Avatar Initial */}
           <div className="h-8 w-8 shrink-0 rounded-full bg-primary/10 flex items-center justify-center">
             <span className="text-sm font-semibold text-primary">
@@ -37,7 +37,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
 
           {/* Chevron indicator */}
           <ChevronUp className="h-4 w-4 shrink-0 text-muted-foreground" />
-        </button>
+        </div>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent side="top" align="start" className="w-56 mb-1">

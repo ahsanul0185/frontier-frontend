@@ -14,3 +14,9 @@ export function generateSlug(title: string) {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
 }
+
+
+export function getImageUrlFromPath(path: string | null) {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5160";
+  return path ? `${baseUrl}/images/posts/${path}` : "https://images.unsplash.com/photo-1511285605577-4d62fb50d2f7?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBsYWNlaG9sZGVyfGVufDB8fDB8fHww";
+}
