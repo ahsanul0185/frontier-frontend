@@ -9,8 +9,8 @@ import Button from '@/components/ui/Button'
 import 'react-quill-new/dist/quill.snow.css'
 import { generateSlug, getImageUrlFromPath } from '@/lib/utils'
 import { createArticle, uploadImage } from '@/services/article.service'
+import { toast } from 'sonner'
 
-// Quill must be client-only
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
 
 
@@ -57,13 +57,12 @@ export default function CreateArticleForm() {
         notes,
         author,
         image:  getImageUrlFromPath(imageUpRes.url),
-        published: false,
+        published: true,
       }
     
       const result = await createArticle(articleData);
 
-      console.log("-----------------------------------------------Article created:", result)
-      
+      toast.success('Article created successfully!')
 
     } catch (error) {
       setLoading(false)

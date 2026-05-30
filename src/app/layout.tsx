@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AppContextProvider } from "@/providers/AppContextProvider";
 import SearchOverlay from "@/components/shared/SearchOverlay";
 import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -42,6 +43,7 @@ export default function RootLayout({
           <AppContextProvider>
             {children}
             <SearchOverlay />
+            <Toaster />
           </AppContextProvider>
         </ThemeProvider>
       </body>

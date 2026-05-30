@@ -7,7 +7,7 @@ import { getAllArticles } from "@/services/article.service";
 
 export default async function Home() {
 
-  const articles = await getAllArticles({published : false});
+  const articles = await getAllArticles();
 
 
   return (

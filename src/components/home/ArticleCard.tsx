@@ -6,14 +6,14 @@ import Link from 'next/link'
 
 export default function ArticleCard({ article }: { article: IArticle }) {
 
-  // const articleImage = getImageUrlFromPath(article.image);
+  const articleImage = article.image?.startsWith('http') ? article.image : getImageUrlFromPath(article.image);
 
   return (
     <Link href={`/articles/${article.slug}`} className="group flex flex-col">
       {/* Image */}
       <div className="relative overflow-hidden aspect-4/3 mb-4">
         <img
-          src={article.image || '/images/placeholder.png'}
+          src={articleImage || '/images/placeholder.png'}
           alt={article.title}
           // fill
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"

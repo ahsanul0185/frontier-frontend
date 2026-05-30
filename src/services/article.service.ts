@@ -32,6 +32,12 @@ export const getAllArticles = async (params : IGetAllArticlesParams = {}) : Prom
     }
 }
 
+export const getPostBySlug = async (slug: string) : Promise<IArticle> => {
+    const res = await httpClient.get(`/posts/${slug}`);
+    return res;
+}
+
+
 export const uploadImage = async (formData: FormData) => {
     const res = await httpClient.post("/uploads", formData, {
         headers: {
@@ -43,6 +49,15 @@ export const uploadImage = async (formData: FormData) => {
 
 export const createArticle = async (articleData: Partial<IArticle>) => {
     const res = await httpClient.post("/posts", articleData, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    return res;
+}
+
+export const updateArticle = async (id: string, articleData: Partial<IArticle>) => {
+    const res = await httpClient.put(`/posts/${id}`, articleData, {
         headers: {
             "Content-Type": "application/json",
         },

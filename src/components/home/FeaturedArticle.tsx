@@ -3,8 +3,6 @@ import { FeaturedArticleProps } from '@/types/article.types'
 import Image from 'next/image'
 import Link from 'next/link'
 
-
-
 export default function FeaturedArticle({
   title = 'Vitaliy Shchepanskyi.',
   subtitle = 'The Measure of Fragility',
