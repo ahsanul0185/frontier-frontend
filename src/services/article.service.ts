@@ -56,11 +56,15 @@ export const createArticle = async (articleData: Partial<IArticle>) => {
     return res;
 }
 
-export const updateArticle = async (id: string, articleData: Partial<IArticle>) => {
+export const updateArticle = async (id: string | number, articleData: Partial<IArticle>) => {
     const res = await httpClient.put(`/posts/${id}`, articleData, {
         headers: {
             "Content-Type": "application/json",
         },
     });
     return res;
+}
+
+export const deleteArticle = async (id: string | number): Promise<void> => {
+  await httpClient.delete(`/posts/${id}`);
 }

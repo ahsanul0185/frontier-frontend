@@ -1,7 +1,7 @@
 // src/components/home/ArticleGrid.tsx
 import { Article, IArticle } from '@/types/article.types'
 import ArticleCard from './ArticleCard'
-import Button from '../ui/Button'
+import AppButton from '../ui/AppButton'
 
 
 
@@ -14,9 +14,9 @@ export default function ArticleGrid({ articles }: { articles: IArticle[] }) {
         ))}
       </div>
       <div className='flex items-center mt-12 '>
-        <Button className='mx-auto w-fit'>
+        <AppButton className='mx-auto w-fit'>
           Show More
-        </Button>
+        </AppButton>
       </div>
     </section>
   )

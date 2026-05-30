@@ -3,10 +3,10 @@
 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { useState } from 'react'
 import { loginUser } from '@/services/auth.service'
+import AppButton from '../ui/AppButton'
 
 export default function LoginForm() {
 
@@ -81,9 +81,9 @@ export default function LoginForm() {
           />
         </div>
 
-        <Button type="submit" size="lg" className="w-full mt-2">
+        <AppButton type="submit" size="lg" className="w-full mt-2">
           Sign In
-        </Button>
+        </AppButton>
       </form>
 
       {/* Divider */}

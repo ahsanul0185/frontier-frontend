@@ -1,33 +1,6 @@
-// import { getPostBySlug } from '@/services/article.service';
-// import React from 'react'
-
-// export default async function BlogPostPage({params} : {params : Promise<{slug : string}>}) {
-
-//   const {slug} = await params;
-
-//   let article;
-
-//   try {
-//     article = await getPostBySlug(slug);
-//   } catch (error) {
-//     console.error("Error fetching article:", error)
-//   }
-
-//   if (!article) {
-//     return <div className="container">No Article Found</div>
-//   }
-
-//   return (
-//     <div className="container">BlogPostPage</div>
-//   )
-// }
-
-
-
 import { formatDate } from '@/lib/utils';
 import { getPostBySlug } from '@/services/article.service';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

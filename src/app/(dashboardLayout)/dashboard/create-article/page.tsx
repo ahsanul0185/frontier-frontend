@@ -10,11 +10,6 @@ export default function CreateArticlePage() {
       </div>
 
       <CreateArticleForm
-        onSubmit={async (formData) => {
-          'use server'
-          // will call API here
-          console.log([...formData.entries()])
-        }}
       />
     </div>
   )

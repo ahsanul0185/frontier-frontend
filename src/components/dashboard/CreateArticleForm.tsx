@@ -5,11 +5,11 @@ import dynamic from 'next/dynamic'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import Button from '@/components/ui/Button'
 import 'react-quill-new/dist/quill.snow.css'
 import { generateSlug, getImageUrlFromPath } from '@/lib/utils'
 import { createArticle, uploadImage } from '@/services/article.service'
 import { toast } from 'sonner'
+import AppButton from '../ui/AppButton'
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
 
@@ -195,9 +195,9 @@ export default function CreateArticleForm() {
 
       {/* Submit */}
       <div className="flex items-center gap-4 pt-2 border-t border-border">
-        <Button type="submit" size="lg" disabled={loading}>
+        <AppButton type="submit" size="lg" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit Article'}
-        </Button>
+        </AppButton>
       </div>
 
     </form>
