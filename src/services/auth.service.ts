@@ -1,51 +1,84 @@
 "use server"
 
 import { httpClient } from "@/lib/axios/httpClient";
-import { setCookie } from "@/lib/cookieUtils";
+import { setCookie, deleteCookie, getCookie } from "@/lib/cookieUtils";
 
-
-
-export async function loginUser(payload : {username: string, password: string}) {
+export async function logoutUser() {
+    await deleteCookie("access_token");
+}
+export async function loginUser(payload: { username: string; password: string }) {
   try {
     const res = await httpClient.post("/auth/login", payload);
 
     if (!res.access_token) {
-      throw new Error("Login failed: Invalid credentials");
+      throw new Error("Login failed: no token received.");
     }
 
-    const {access_token, token_type, expires_in} = res;
+    const { access_token, token_type, expires_in } = res;
 
     await setCookie("access_token", access_token, expires_in);
 
-    return {
-      access_token: access_token,
-      token_type: token_type,
-      expires_in: expires_in
-    };
+    return { access_token, token_type, expires_in };
 
-  } catch (error) {
-    console.error("Login failed:", error);
-    throw error;
+  } catch (error: any) {
+    if (error?.response) {
+      const status: number = error.response.status;
+      const data = error.response.data;
+
+      if (status === 401) {
+        const detail = data?.detail ?? "Invalid username or password.";
+        throw new Error(detail);
+      }
+
+      if (data) {
+        const message =
+          typeof data === "string"
+            ? data
+            : data?.message ?? data?.title ?? `Server error (${status})`;
+        throw new Error(message);
+      }
+
+      throw new Error(`Server error (${status}).`);
+    }
+
+    throw new Error("Unable to reach the server. Please check your connection.");
   }
 }
 
 
+
+
 export async function getUserInfo() {
-    return {
-        id: "usr_01j7x2b9m",
-        name: "Yuliia Karpets",
-        email: "yuliia.karpets@example.com",
-        role: "AUTHOR", 
-        status: "ACTIVE",
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80",
-        bio: "Cultural journalist and art critic focusing on modern allegories, collective trauma, and the architecture of memory.",
-        birthdate: "1992-04-14",
-        gender: "FEMALE", 
-        phoneNumber: "+380 50 123 4567",
-        address: "Volodymyrska St, 24, Kyiv, Ukraine, 01001",
-        createdAt: "2024-01-15T08:30:00Z",
-        updatedAt: "2024-11-01T14:22:18Z"
-      }
+    const token = await getCookie("access_token");
+
+    if (!token) return null;
+
+    try {
+        // JWT is base64url: header.payload.signature — decode only the payload
+        const payloadBase64 = token.split(".")[1];
+        // base64url → base64
+        const base64 = payloadBase64.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = Buffer.from(base64, "base64").toString("utf-8");
+        const claims = JSON.parse(jsonPayload);
+
+        // The backend stores: ClaimTypes.Name = username, ClaimTypes.Role = role(s)
+        // .NET maps these to "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+        // and "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        const username =
+            claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] ??
+            claims["name"] ??
+            claims["unique_name"] ??
+            "Unknown";
+
+        const roleClaim =
+            claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ??
+            claims["role"] ??
+            [];
+
+        const roles: string[] = Array.isArray(roleClaim) ? roleClaim : [roleClaim];
+
+        return { username, roles };
+    } catch {
+        return null;
+    }
 }
-
-
