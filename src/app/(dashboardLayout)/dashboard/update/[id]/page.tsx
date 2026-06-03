@@ -1,8 +1,18 @@
 import UpdateArticleForm from '@/components/dashboard/UpdateArticleForm';
 import { getPostBySlug } from '@/services/article.service';
+import { getUserInfo, getUserPermissions } from '@/services/auth.service';
+import { hasRequiredPermission } from '@/lib/authUtils';
+import { redirect } from 'next/navigation';
 import React from 'react'
-
 export default async function BlogPostPage({ params }: { params: Promise<{ id: string }> }) {
+  const userInfo = await getUserInfo();
+  if (!userInfo) redirect('/login');
+
+  const userPermissions = await getUserPermissions(userInfo.username);
+  if (!hasRequiredPermission(userPermissions, ['posts.write'])) {
+    redirect('/dashboard/list-articles'); // or unauthorized page
+  }
+
   const { id } = await params;
 
   let article;

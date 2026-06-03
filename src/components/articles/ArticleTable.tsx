@@ -14,9 +14,10 @@ import { formatDate } from "@/lib/utils";
 
 interface ArticleTableProps {
   data: IArticlePaginatedResponse;
+  userPermissions: string[];
 }
 
-export function ArticleTable({ data }: ArticleTableProps) {
+export function ArticleTable({ data, userPermissions }: ArticleTableProps) {
   const { items } = data;
 
   return (
@@ -46,7 +47,7 @@ export function ArticleTable({ data }: ArticleTableProps) {
                 </TableCell>
                 <TableCell>{formatDate(article.createdAtUtc)}</TableCell>
                 <TableCell>
-                  <ArticleTableActions article={article} />
+                  <ArticleTableActions article={article} userPermissions={userPermissions} />
                 </TableCell>
               </TableRow>
             ))

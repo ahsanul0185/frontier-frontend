@@ -82,3 +82,26 @@ export async function getUserInfo() {
         return null;
     }
 }
+
+export async function getUserPermissions(username: string): Promise<string[]> {
+    try {
+        const users = await httpClient.get("/users");
+        
+        if (!Array.isArray(users)) return [];
+
+        const user = users.find((u: any) => u.username === username);
+
+        if (!user || !Array.isArray(user.roles)) return [];
+
+        const permissions = user.roles.flatMap((role: any) => 
+            Array.isArray(role.permissions) 
+                ? role.permissions.map((p: any) => p.name) 
+                : []
+        );
+
+        return Array.from(new Set(permissions));
+    } catch (error) {
+        console.error("Failed to fetch user permissions", error);
+        return [];
+    }
+}

@@ -12,13 +12,14 @@ import { MoreHorizontal, SquarePen, Eye, Trash2 } from "lucide-react";
 import { IArticle } from "@/types/article.types";
 import { useRouter } from "next/navigation";
 import DeleteArticleDialog from "./DeleteArticleDialog";
-
+import { hasRequiredPermission } from "@/lib/authUtils";
 
 interface ArticleTableActionsProps {
   article: IArticle;
+  userPermissions: string[];
 }
 
-export function ArticleTableActions({ article }: ArticleTableActionsProps) {
+export function ArticleTableActions({ article, userPermissions }: ArticleTableActionsProps) {
   const router = useRouter(); 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
@@ -36,18 +37,24 @@ export function ArticleTableActions({ article }: ArticleTableActionsProps) {
             <Eye className="mr-2 h-4 w-4" />
             <span>View</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/dashboard/update/${article.id}`)}>
-            <SquarePen className="mr-2 h-4 w-4" />
-            <span>Edit</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="text-destructive focus:bg-destructive/10 focus:text-destructive"
-            onClick={() => setShowDeleteDialog(true)}
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            <span>Delete</span>
-          </DropdownMenuItem>
+          {hasRequiredPermission(userPermissions, ['posts.write']) && (
+            <DropdownMenuItem onClick={() => router.push(`/dashboard/update/${article.id}`)}>
+              <SquarePen className="mr-2 h-4 w-4" />
+              <span>Edit</span>
+            </DropdownMenuItem>
+          )}
+          {(hasRequiredPermission(userPermissions, ['posts.write']) || hasRequiredPermission(userPermissions, ['posts.delete'])) && (
+            <DropdownMenuSeparator />
+          )}
+          {hasRequiredPermission(userPermissions, ['posts.delete']) && (
+            <DropdownMenuItem
+              className="text-destructive focus:bg-destructive/10 focus:text-destructive"
+              onClick={() => setShowDeleteDialog(true)}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              <span>Delete</span>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
       
