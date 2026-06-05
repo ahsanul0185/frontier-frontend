@@ -1,20 +1,24 @@
-// import { getDefaultDashboardRoute } from "@/lib/authUtils"
-import { getNavItemsByRole } from "@/lib/navItems"
+import { getNavItemsByPermissions } from "@/lib/navItems"
 
 import { NavSection } from "@/types/dashboard.types"
 import DashboardSidebarContent from "./DashboardSidebarContent"
-import { getUserInfo } from "@/services/auth.service"
+import { getUserInfo, getUserPermissions } from "@/services/auth.service"
 import { UserInfo } from "@/types/user.types"
+import { redirect } from "next/navigation"
 
 const DashboardSidebar = async () => {
-  const userInfo = await getUserInfo() as UserInfo;
-  const role = userInfo?.role;
-  const navItems : NavSection[] = getNavItemsByRole()
+  const userInfo = await getUserInfo();
 
-//   const dashboardHome = getDefaultDashboardRoute(role)
+  // Middleware should catch this, but guard here too
+  if (!userInfo) redirect("/login");
+
+  const userPermissions = await getUserPermissions(userInfo.username);
+  const navItems: NavSection[] = getNavItemsByPermissions(userPermissions);
+
+//   const dashboardHome = getDefaultDashboardRoute(userInfo.roles)
   const dashboardHome = "/dashboard"
   return (
-    <DashboardSidebarContent userInfo={userInfo} navItems={navItems} dashboardHome={dashboardHome}/>
+    <DashboardSidebarContent userInfo={userInfo as UserInfo} navItems={navItems} dashboardHome={dashboardHome}/>
   )
 }
 

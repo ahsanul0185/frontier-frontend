@@ -1,7 +1,8 @@
 export interface NavItem {
     title : string,
     href : string,
-    icon : string
+    icon : string,
+    permissions?: string[]
 }
 
 export interface NavSection {

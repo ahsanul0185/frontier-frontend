@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AppContextProvider } from "@/providers/AppContextProvider";
 import SearchOverlay from "@/components/shared/SearchOverlay";
 import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -26,11 +27,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // className={cn("h-full", "antialiased", inter.variable)}
+      className={cn(playfair.variable, inter.variable)}
       suppressHydrationWarning
     >
       <body
-        className="min-h-full flex flex-col font-sans transition-colors duration-300"
+        className="min-h-full flex flex-col font-serif transition-colors duration-300"
         suppressHydrationWarning
       >
         <ThemeProvider
@@ -42,6 +43,7 @@ export default function RootLayout({
           <AppContextProvider>
             {children}
             <SearchOverlay />
+            <Toaster />
           </AppContextProvider>
         </ThemeProvider>
       </body>

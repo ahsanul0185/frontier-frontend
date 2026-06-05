@@ -14,16 +14,20 @@ export interface ApiRequestOptions {
 
 const axiosInstance = async () : Promise<AxiosInstance> => {
     const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
 
-    const cookieHeader = cookieStore.getAll().map(c => `${c.name}=${c.value}`).join('; ');
+    const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+    };
+
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
 
     const instance = axios.create({
         baseURL: BASE_URL,
         withCredentials: true,
-        headers : {
-            "Content-Type": "application/json",
-            Cookie: cookieHeader
-        }
+        headers
     });
 
     return instance;

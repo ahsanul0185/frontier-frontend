@@ -5,19 +5,16 @@ import dynamic from 'next/dynamic'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import Button from '@/components/ui/Button'
 import 'react-quill-new/dist/quill.snow.css'
-import { generateSlug } from '@/lib/utils'
+import { generateSlug, getImageUrlFromPath } from '@/lib/utils'
+import { createArticle, uploadImage } from '@/services/article.service'
+import { toast } from 'sonner'
+import AppButton from '../ui/AppButton'
 
-// Quill must be client-only
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
 
 
-interface CreateArticleFormProps {
-  onSubmit?: (data: FormData) => Promise<void>
-}
-
-export default function CreateArticleForm({ onSubmit }: CreateArticleFormProps) {
+export default function CreateArticleForm() {
   const [title, setTitle] = useState('')
   const [slug, setSlug] = useState('')
   const [content, setContent] = useState('')
@@ -47,17 +44,31 @@ export default function CreateArticleForm({ onSubmit }: CreateArticleFormProps) 
     e.preventDefault()
     setLoading(true)
     try {
+      
       const formData = new FormData()
-      formData.append('title', title)
-      formData.append('slug', slug)
-      formData.append('content', content)
-      formData.append('author', author)
-      formData.append('published', 'true')
-      if (notes.trim()) formData.append('notes', notes)
-      if (image) formData.append('image', image)
+      if (image) formData.append('file', image)
 
-      await onSubmit?.(formData)
-    } finally {
+      const imageUpRes = image ? await uploadImage(formData) : null;
+
+      const articleData = {
+        title,
+        slug,
+        content,
+        notes,
+        author,
+        image:  getImageUrlFromPath(imageUpRes.url),
+        published: true,
+      }
+    
+      const result = await createArticle(articleData);
+
+      toast.success('Article created successfully!')
+
+    } catch (error) {
+      setLoading(false)
+      console.error("Error submitting article:", error)
+    }
+     finally {
       setLoading(false)
     }
   }
@@ -184,9 +195,9 @@ export default function CreateArticleForm({ onSubmit }: CreateArticleFormProps) 
 
       {/* Submit */}
       <div className="flex items-center gap-4 pt-2 border-t border-border">
-        <Button type="submit" size="lg" disabled={loading}>
+        <AppButton type="submit" size="lg" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit Article'}
-        </Button>
+        </AppButton>
       </div>
 
     </form>
