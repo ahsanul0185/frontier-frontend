@@ -21,6 +21,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 type Role = { id: number; name: string };
 type User = { id: number; username: string; roles: Role[] };
 
@@ -43,23 +51,26 @@ function RoleMultiSelect({
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <span className="text-sm text-gray-500 whitespace-nowrap">Add role:</span>
-        <select
-          className="text-sm border border-gray-200 rounded p-1.5 outline-none text-gray-700 bg-white flex-1"
-          onChange={(e) => {
-            const val = parseInt(e.target.value);
-            if (!isNaN(val) && !selected.includes(val)) onChange([...selected, val]);
-            e.target.value = "";
+        <Select
+          onValueChange={(val: string | null) => {
+            if (!val) return;
+            const id = parseInt(val);
+            if (!isNaN(id) && !selected.includes(id)) onChange([...selected, id]);
           }}
         >
-          <option value="">Select…</option>
-          {allRoles
-            .filter((r) => !selected.includes(r.id))
-            .map((r) => (
-              <option key={r.id} value={r.id}>
-                {r.name}
-              </option>
-            ))}
-        </select>
+          <SelectTrigger className="text-sm h-9 flex-1">
+            <SelectValue placeholder="Select…" />
+          </SelectTrigger>
+          <SelectContent>
+            {allRoles
+              .filter((r) => !selected.includes(r.id))
+              .map((r) => (
+                <SelectItem key={r.id} value={String(r.id)}>
+                  {r.name}
+                </SelectItem>
+              ))}
+          </SelectContent>
+        </Select>
       </div>
       {selected.length > 0 && (
         <div className="flex flex-wrap gap-1.5">

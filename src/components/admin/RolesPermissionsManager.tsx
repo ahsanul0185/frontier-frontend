@@ -17,6 +17,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 type Props = {
   roles: any[];
   permissions: any[];
@@ -116,19 +124,28 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
           
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-500">Optional Permissions:</span>
-            <select 
-              className="text-sm border border-gray-200 rounded p-1 outline-none text-gray-700 bg-white"
-              onChange={(e) => {
-                  const val = parseInt(e.target.value);
-                  if(!isNaN(val) && !newRolePerms.includes(val)) setNewRolePerms([...newRolePerms, val]);
-                  e.target.value = "";
-              }}
-            >
-              <option value="">+ Add...</option>
-              {permissions.filter(p => !newRolePerms.includes(p.id)).map(p => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
-            </select>
+            <Select
+                onValueChange={(val: string | null) => {
+                  if (!val) return;
+                  const id = parseInt(val);
+                  if (!isNaN(id) && !newRolePerms.includes(id)) {
+                    setNewRolePerms([...newRolePerms, id]);
+                  }
+                }}
+              >
+                <SelectTrigger className="w-[160px] text-sm h-8">
+                  <SelectValue placeholder="+ Add..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {permissions
+                    .filter((p) => !newRolePerms.includes(p.id))
+                    .map((p) => (
+                      <SelectItem key={p.id} value={String(p.id)}>
+                        {p.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
           </div>
 
           {newRolePerms.length > 0 && (
