@@ -3,9 +3,13 @@ import ArticleCard from './ArticleCard'
 import AppButton from '../ui/AppButton'
 import Link from 'next/link'
 
-export default function ArticleGrid({ data }: { data: IArticlePaginatedResponse }) {
+export default function ArticleGrid({ data, q }: { data: IArticlePaginatedResponse, q?: string }) {
   const hasNext = (data.page * data.pageSize) < data.total;
   const hasPrevious = data.page > 1;
+
+  const getHref = (targetPage: number) => {
+    return `/?page=${targetPage}${q ? `&q=${encodeURIComponent(q)}` : ''}`;
+  }
 
   return (
     <section className="container py-16">
@@ -17,7 +21,7 @@ export default function ArticleGrid({ data }: { data: IArticlePaginatedResponse 
       
       <div className='flex items-center justify-center gap-4 mt-12'>
         {hasPrevious && (
-          <Link href={`/?page=${data.page - 1}`}>
+          <Link href={getHref(data.page - 1)}>
              <AppButton className='w-fit'>
                 Previous
              </AppButton>
@@ -25,7 +29,7 @@ export default function ArticleGrid({ data }: { data: IArticlePaginatedResponse 
         )}
         
         {hasNext && (
-          <Link href={`/?page=${data.page + 1}`}>
+          <Link href={getHref(data.page + 1)}>
             <AppButton className='w-fit'>
                Next
             </AppButton>
