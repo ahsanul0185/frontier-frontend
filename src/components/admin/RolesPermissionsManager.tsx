@@ -249,7 +249,7 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
       )}
 
       {/* Permissions Section */}
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col h-full">
+      {/* <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col h-full">
         <h2 className="text-xl font-bold mb-4">Permissions</h2>
         
         <form onSubmit={handleCreatePermission} className="flex gap-2 mb-6">
@@ -265,8 +265,6 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
           </Button>
         </form>
         
-        {/* Errors shown via toast */}
-
         <div className="overflow-y-auto max-h-[400px] flex-1 border rounded-lg">
             <table className="w-full text-sm text-left">
                 <thead className="bg-gray-50 border-b sticky top-0">
@@ -314,7 +312,7 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
                 </tbody>
             </table>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

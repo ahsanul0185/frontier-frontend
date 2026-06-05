@@ -34,19 +34,19 @@ export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
           {/* Logo */}
           <Logo />
 
-          <nav className="hidden md:flex flex-1 justify-center space-x-12 font-heading">
-             <Link href="/" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+          <nav className="hidden md:flex  flex-1 justify-center space-x-12 font-heading">
+             <Link href="/" className="relative font-playfair text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
                Home
                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
              </Link>
 
              {isLoggedIn ? (
-               <Link href="/dashboard" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               <Link href="/dashboard" className="relative font-playfair text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
                  Dashboard
                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                </Link>
              ) : (
-               <Link href="/login" className="relative text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
+               <Link href="/login" className="relative font-playfair text-foreground hover:text-primary transition-colors text-base font-medium duration-200 group">
                  Login
                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                </Link>
