@@ -23,7 +23,7 @@ export default async function Home(
   const rawQ = searchParams.q;
   const q = typeof rawQ === 'string' ? rawQ : undefined;
 
-  const initialArticlesResponse = await getAllArticles({ page, pageSize: 6, published: true, q });
+  const initialArticlesResponse = await getAllArticles({ page, pageSize: 9, published: true, q });
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-white font-sans dark:bg-black">
