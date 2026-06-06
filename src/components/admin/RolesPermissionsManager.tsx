@@ -105,7 +105,7 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
   return (
     <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
       {/* Roles Section */}
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col h-full">
+      <div className="bg-card text-card-foreground p-6 rounded-lg shadow-sm border flex flex-col h-full">
         <h2 className="text-xl font-bold mb-4">Roles</h2>
         
         <form onSubmit={handleCreateRole} className="mb-6 flex flex-col gap-3">
@@ -123,7 +123,7 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">Optional Permissions:</span>
+            <span className="text-sm text-muted-foreground">Optional Permissions:</span>
             <Select
                 onValueChange={(val: string | null) => {
                   if (!val) return;
@@ -154,9 +154,9 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
                 const p = permissions.find(x => x.id === id);
                 if(!p) return null;
                 return (
-                  <span key={id} className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded inline-flex items-center gap-1.5 border border-indigo-100">
+                  <span key={id} className="bg-primary/10 text-primary text-xs px-2 py-1 rounded inline-flex items-center gap-1.5 border border-primary/20">
                     {p.name}
-                    <button type="button" onClick={() => setNewRolePerms(prev => prev.filter(x => x !== id))} className="text-indigo-400 hover:text-indigo-900 font-bold leading-none">
+                    <button type="button" onClick={() => setNewRolePerms(prev => prev.filter(x => x !== id))} className="text-primary/70 hover:text-primary font-bold leading-none">
                       &times;
                     </button>
                   </span>
@@ -169,21 +169,21 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
         </form>
         
         <div className="overflow-y-auto max-h-[400px] flex-1 border rounded-lg">
-            <table className="w-full text-sm text-left">
-                <thead className="bg-gray-50 border-b sticky top-0">
+            <table className="w-full text-sm text-left border-collapse">
+                <thead className="bg-muted/50 border-b sticky top-0">
                     <tr>
-                        <th className="px-4 py-3 font-medium text-gray-700">ID</th>
-                        <th className="px-4 py-3 font-medium text-gray-700">Role Name</th>
-                        <th className="px-4 py-3 font-medium text-gray-700 text-right">Actions</th>
+                        <th className="px-4 py-3 font-medium text-foreground">ID</th>
+                        <th className="px-4 py-3 font-medium text-foreground">Role Name</th>
+                        <th className="px-4 py-3 font-medium text-foreground text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody className="divide-y">
+                <tbody className="divide-y relative">
                     {roles.map(role => (
-                        <tr key={role.id} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-gray-500 w-12">{role.id}</td>
+                        <tr key={role.id} className="hover:bg-muted/50">
+                            <td className="px-4 py-3 text-muted-foreground w-12">{role.id}</td>
                             <td className="px-4 py-3 font-medium">
                                 {role.name}
-                                <div className="text-xs font-normal text-gray-400 mt-0.5">
+                                <div className="text-xs font-normal text-muted-foreground mt-0.5">
                                     {role.permissions?.length || 0} permissions
                                 </div>
                             </td>
@@ -222,7 +222,7 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
                     ))}
                     {roles.length === 0 && (
                         <tr>
-                            <td colSpan={3} className="px-4 py-8 text-center text-gray-500 text-sm">No roles found</td>
+                            <td colSpan={3} className="px-4 py-8 text-center text-muted-foreground text-sm">No roles found</td>
                         </tr>
                     )}
                 </tbody>
@@ -233,13 +233,13 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
       {/* Edit Role Overlay (Absolute centered inside parent container) */}
       {editingRoleId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
+          <div className="bg-popover text-popover-foreground rounded-xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
             <h3 className="text-lg font-bold mb-1">Edit Role Permissions</h3>
-            <p className="text-xs text-gray-500 mb-4">Select the permissions this role should have.</p>
+            <p className="text-xs text-muted-foreground mb-4">Select the permissions this role should have.</p>
             
             <div className="max-h-60 overflow-y-auto mb-6 pr-2 space-y-2 border-y py-3">
               {permissions.map(p => (
-                <label key={p.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded">
+                <label key={p.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 p-1.5 rounded">
                   <input 
                     type="checkbox" 
                     checked={editRolePerms.includes(p.id)} 
@@ -247,12 +247,12 @@ export default function RolesPermissionsManager({ roles, permissions }: Props) {
                       if (e.target.checked) setEditRolePerms([...editRolePerms, p.id]);
                       else setEditRolePerms(editRolePerms.filter(id => id !== p.id));
                     }}
-                    className="rounded border-gray-300 text-primary focus:ring-primary"
+                    className="rounded border-input text-primary focus:ring-primary"
                   />
                   <span>{p.name}</span>
                 </label>
               ))}
-              {permissions.length === 0 && <p className="text-sm text-gray-400 italic">No system permissions exist yet.</p>}
+              {permissions.length === 0 && <p className="text-sm text-muted-foreground italic">No system permissions exist yet.</p>}
             </div>
             
             <div className="flex justify-end gap-2">

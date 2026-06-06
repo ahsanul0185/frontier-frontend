@@ -23,7 +23,7 @@ export function ArticleTable({ data, userPermissions }: ArticleTableProps) {
   return (
     <div className="border mt-4">
       <Table>
-        <TableHeader className="bg-gray-50">
+        <TableHeader className="bg-muted/50">
           <TableRow>
             <TableHead>Title</TableHead>
             <TableHead>Author</TableHead>
@@ -40,9 +40,9 @@ export function ArticleTable({ data, userPermissions }: ArticleTableProps) {
                 <TableCell>{article.author}</TableCell>
                 <TableCell>
                   {article.published ? (
-                    <span className="text-green-600 bg-green-100 px-2 py-1 rounded-full text-xs">Yes</span>
+                    <span className="text-green-700 dark:text-green-400 bg-green-500/10 px-2 py-1 rounded-full text-xs">Yes</span>
                   ) : (
-                    <span className="text-gray-600 bg-gray-100 px-2 py-1 rounded-full text-xs">No</span>
+                    <span className="text-muted-foreground bg-muted px-2 py-1 rounded-full text-xs">No</span>
                   )}
                 </TableCell>
                 <TableCell>{formatDate(article.createdAtUtc)}</TableCell>
