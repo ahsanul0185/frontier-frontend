@@ -182,9 +182,9 @@ body {
 .blog-post {
   font-size: 16px;
   /* line-height: 1.85; */
-  color: #414141;
+  color: var(--foreground);
   /* font-family: 'Lora', Georgia, serif; */
-  background: #ffffff;
+  background: transparent;
 }
 
 .blog-post img {
@@ -197,7 +197,7 @@ body {
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
-  color: #414141;
+  color: var(--foreground);
   margin: 0.25em 0 0.6em;
   letter-spacing: -0.02em;
 }
@@ -205,7 +205,7 @@ body {
 .blog-post h2 {
   font-size: 1.65rem;
   font-weight: 600;
-  color: #414141;
+  color: var(--foreground);
   margin: 1.4em 0 0.5em;
   letter-spacing: -0.01em;
 }
@@ -213,7 +213,7 @@ body {
 .blog-post h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #414141;
+  color: var(--foreground);
   margin: 1.2em 0 0.4em;
 }
 
@@ -221,7 +221,7 @@ body {
 .blog-post h5,
 .blog-post h6 {
   font-weight: 600;
-  color: #475569;
+  color: var(--muted-foreground);
   margin: 1em 0 0.35em;
 }
 
@@ -235,39 +235,40 @@ body {
 /* ── Links — no blue, dark slate tones ── */
 
 .blog-post a {
-  color: #334155;
+  color: var(--foreground);
   text-decoration: underline;
   text-decoration-thickness: 1px;
+  text-decoration-color: var(--muted-foreground);
   text-underline-offset: 3px;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .blog-post a:hover {
-  color: #0f172a;
+  text-decoration-color: var(--foreground);
 }
 
 .blog-post a:visited {
-  color: #475569;
+  color: var(--muted-foreground);
 }
 
 /* ── Blockquote ── */
 
 .blog-post blockquote {
-  border-left: 4px solid #6ab832;
-  background: #eff6ff;
+  border-left: 4px solid var(--primary);
+  background: var(--muted);
   margin: 1.5em 0;
   padding: 14px 20px;
   border-radius: 0 8px 8px 0;
   font-style: italic;
-  color: #1e40af;
+  color: var(--muted-foreground);
   font-size: 1.05em;
 }
 
 /* ── Code block ── */
 
 .blog-post pre {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--muted);
+  color: var(--foreground);
   border-radius: 8px;
   padding: 20px 24px;
   font-family: 'JetBrains Mono', monospace;
@@ -275,18 +276,19 @@ body {
   line-height: 1.7;
   overflow-x: auto;
   margin: 1.5em 0;
+  border: 1px solid var(--border);
 }
 
 /* ── Inline code ── */
 
 .blog-post code {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--muted);
+  color: var(--foreground);
   border-radius: 4px;
   padding: 2px 6px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.88em;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
 }
 
 /* ── Lists ── */
@@ -346,7 +348,7 @@ body {
 
 .blog-post hr {
   border: none;
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid var(--border);
   margin: 2em 0;
 }
 

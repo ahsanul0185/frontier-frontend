@@ -80,13 +80,13 @@ function RoleMultiSelect({
             return (
               <span
                 key={id}
-                className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded inline-flex items-center gap-1.5 border border-indigo-100"
+                className="bg-primary/10 text-primary text-xs px-2 py-1 rounded inline-flex items-center gap-1.5 border border-primary/20"
               >
                 {role.name}
                 <button
                   type="button"
                   onClick={() => onChange(selected.filter((x) => x !== id))}
-                  className="text-indigo-400 hover:text-indigo-900 font-bold leading-none"
+                  className="text-primary/70 hover:text-primary font-bold leading-none"
                 >
                   &times;
                 </button>
@@ -135,15 +135,15 @@ function CreateUserModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200">
+      <div className="bg-popover text-popover-foreground rounded-xl shadow-xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200">
         <h3 className="text-lg font-bold mb-1">Create New User</h3>
-        <p className="text-xs text-gray-500 mb-5">
+        <p className="text-xs text-muted-foreground mb-5">
           Fill out the fields below. Role assignment is optional.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="text-sm font-medium text-gray-700 block mb-1">
+            <label className="text-sm font-medium text-foreground block mb-1">
               Username
             </label>
             <Input
@@ -155,7 +155,7 @@ function CreateUserModal({
           </div>
 
           <div>
-            <label className="text-sm font-medium text-gray-700 block mb-1">
+            <label className="text-sm font-medium text-foreground block mb-1">
               Password
             </label>
             <Input
@@ -168,8 +168,8 @@ function CreateUserModal({
           </div>
 
           <div>
-            <label className="text-sm font-medium text-gray-700 block mb-1">
-              Roles <span className="text-gray-400 font-normal">(optional)</span>
+            <label className="text-sm font-medium text-foreground block mb-1">
+              Roles <span className="text-muted-foreground font-normal">(optional)</span>
             </label>
             <RoleMultiSelect
               allRoles={roles}
@@ -231,9 +231,9 @@ function EditUserRolesModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
+      <div className="bg-popover text-popover-foreground rounded-xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
         <h3 className="text-lg font-bold mb-1">Edit User Roles</h3>
-        <p className="text-xs text-gray-500 mb-4">
+        <p className="text-xs text-muted-foreground mb-4">
           Assign or revoke roles for <strong>{user.username}</strong>.
         </p>
 
@@ -241,7 +241,7 @@ function EditUserRolesModal({
           {roles.map((role) => (
             <label
               key={role.id}
-              className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded"
+              className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 p-1.5 rounded"
             >
               <input
                 type="checkbox"
@@ -252,13 +252,13 @@ function EditUserRolesModal({
                   else
                     setSelectedRoles(selectedRoles.filter((id) => id !== role.id));
                 }}
-                className="rounded border-gray-300"
+                className="rounded border-input text-primary focus:ring-primary"
               />
               <span>{role.name}</span>
             </label>
           ))}
           {roles.length === 0 && (
-            <p className="text-sm text-gray-400 italic">No roles available.</p>
+            <p className="text-sm text-muted-foreground italic">No roles available.</p>
           )}
         </div>
 
@@ -286,7 +286,7 @@ export default function UsersManager({ users, roles }: Props) {
     <div className="mt-6">
       {/* Header Row */}
       <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           {users.length} user{users.length !== 1 ? "s" : ""} total
         </p>
         <Button onClick={() => setShowCreate(true)}>+ Create User</Button>
@@ -295,32 +295,32 @@ export default function UsersManager({ users, roles }: Props) {
       {/* Users Table */}
       <div className="border rounded-lg overflow-hidden">
         <table className="w-full text-sm text-left">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-muted/50 border-b">
             <tr>
-              <th className="px-4 py-3 font-medium text-gray-700 w-12">ID</th>
-              <th className="px-4 py-3 font-medium text-gray-700">Username</th>
-              <th className="px-4 py-3 font-medium text-gray-700">Roles</th>
-              <th className="px-4 py-3 font-medium text-gray-700 text-right">
+              <th className="px-4 py-3 font-medium text-foreground w-12">ID</th>
+              <th className="px-4 py-3 font-medium text-foreground">Username</th>
+              <th className="px-4 py-3 font-medium text-foreground">Roles</th>
+              <th className="px-4 py-3 font-medium text-foreground text-right">
                 Actions
               </th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-gray-500">{user.id}</td>
+              <tr key={user.id} className="hover:bg-muted/50">
+                <td className="px-4 py-3 text-muted-foreground">{user.id}</td>
                 <td className="px-4 py-3 font-medium">{user.username}</td>
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap gap-1">
                     {user.roles.length === 0 ? (
-                      <span className="text-gray-400 italic text-xs">
+                      <span className="text-muted-foreground italic text-xs">
                         No roles
                       </span>
                     ) : (
                       user.roles.map((role) => (
                         <span
                           key={role.id}
-                          className="bg-indigo-50 text-indigo-700 text-xs px-2 py-0.5 rounded border border-indigo-100"
+                          className="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded border border-primary/20"
                         >
                           {role.name}
                         </span>
@@ -408,7 +408,7 @@ export default function UsersManager({ users, roles }: Props) {
               <tr>
                 <td
                   colSpan={4}
-                  className="px-4 py-10 text-center text-gray-400 text-sm italic"
+                  className="px-4 py-10 text-center text-muted-foreground text-sm italic"
                 >
                   No users found.
                 </td>
